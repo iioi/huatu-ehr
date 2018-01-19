@@ -20,8 +20,6 @@ public class SysUser {
 	private Long id;
 	@Column(name = "username")
 	private String username;
-	@Column(name = "password")
-	private String password;
 	@Column(name = "is_locked")
 	private Boolean isLocked;
 	@Column(name = "try_num")
@@ -30,4 +28,26 @@ public class SysUser {
 	private Date lastTryLogTime;
 	@Column(name = "is_forbidden")
 	private Boolean isForbidden;
+
+	public void changeTryNum() {
+		// 如果用户已经被锁定，再失败3次(一共8次)后，账号禁用
+		if (isLocked != null && isLocked) {
+			tryNum++;
+			if (tryNum == 8)
+				isForbidden = true;
+		}
+		// 先判断时间
+		Date currentDate = new Date();
+		// 如果时间差大于5min，将失败计数清零
+		if (currentDate.getTime() - lastTryLogTime.getTime() > 5 * 60 * 1000) {
+			tryNum = 0;
+		} else {
+			tryNum++;
+			if (tryNum == 5)
+				isLocked = true;
+		}
+		// 更新时间
+		lastTryLogTime = currentDate;
+	}
+
 }

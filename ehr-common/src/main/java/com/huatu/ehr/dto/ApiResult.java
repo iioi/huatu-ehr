@@ -1,6 +1,6 @@
 package com.huatu.ehr.dto;
 
-import com.huatu.wy.sqlbuilder.dto.PageDto;
+import com.baijia.tianxiao.sqlbuilder.dto.PageDto;
 
 import lombok.Data;
 
