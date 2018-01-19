@@ -10,7 +10,7 @@
 	
 	<dependencies>
 		<dependency>
-			<groupId>com.huatu.wy</groupId>
+			<groupId>com.baijia.tianxiao</groupId>
 			<artifactId>sql-builder</artifactId>
 		</dependency>
 		<dependency>
