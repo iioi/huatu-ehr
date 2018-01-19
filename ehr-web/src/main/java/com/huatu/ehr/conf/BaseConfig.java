@@ -9,10 +9,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.alibaba.druid.pool.DruidDataSource;
 
 @Configuration
+@EnableTransactionManagement
 @PropertySource("classpath:db.properties")
 @ComponentScan({"com.huatu.ehr.dao","com.huatu.ehr.service"})
 public class BaseConfig {
@@ -35,13 +37,13 @@ public class BaseConfig {
 	}
 	
 	@Bean
-	public JdbcTemplate jdbcTemplate() {
-		return new JdbcTemplate(dataSource()); 
+	public JdbcTemplate jdbcTemplate(DataSource dataSource) {
+		return new JdbcTemplate(dataSource); 
 	}
 	
 	@Bean
-	public DataSourceTransactionManager txManager() {
-		return new DataSourceTransactionManager(dataSource());
+	public DataSourceTransactionManager txManager(DataSource dataSource) {
+		return new DataSourceTransactionManager(dataSource);
 	}
 	 
 }

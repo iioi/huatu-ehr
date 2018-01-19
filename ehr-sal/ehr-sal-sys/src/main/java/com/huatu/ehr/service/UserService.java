@@ -1,8 +1,8 @@
 package com.huatu.ehr.service;
 
-import com.huatu.ehr.dto.LoginResult;
+import com.huatu.ehr.dto.ApiResult;
 
 public interface UserService {
 
-	LoginResult login(String username,String password);
+	ApiResult login(String username, String password, boolean inputIdentifyingCode);
 }
