@@ -16,7 +16,7 @@ import com.alibaba.druid.pool.DruidDataSource;
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:db.properties")
-@ComponentScan({"com.huatu.ehr.dao","com.huatu.ehr.service"})
+@ComponentScan({"com.huatu.ehr.**.dao","com.huatu.ehr.**.service"})
 public class BaseConfig {
 	
 	@Value("${jdbc.username}")

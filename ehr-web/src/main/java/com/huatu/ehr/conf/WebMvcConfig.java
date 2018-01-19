@@ -11,14 +11,17 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import com.huatu.ehr.web.Interceptor.SecurityInterceptor;
+
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages="com.huatu.ehr.controller")
+@ComponentScan(basePackages="com.huatu.ehr.web")
 public class WebMvcConfig implements WebMvcConfigurer {
 
 	/**
@@ -35,6 +38,15 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/test").setViewName("hello");
+	}
+	
+	/**
+	 * 添加拦截器
+	 */
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(securityInterceptor()).addPathPatterns("/**");
+		WebMvcConfigurer.super.addInterceptors(registry);
 	}
 	
 	/**
@@ -64,4 +76,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		return viewResolver;
 	}
 	
+	@Bean
+	public SecurityInterceptor securityInterceptor() {
+		return new SecurityInterceptor();
+	}
 }

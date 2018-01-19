@@ -1,5 +1,8 @@
 package com.huatu.ehr;
 
+import java.util.EnumSet;
+
+import javax.servlet.DispatcherType;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -29,8 +32,8 @@ public class WebAppStartup implements WebApplicationInitializer {
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		// 注册Spring MVC的servlet
 		this.addServlet(servletContext);
-		// 注册过滤器
-		servletContext.addFilter("encodingFilter", encodingFilter());
+		// 注册spring character过滤器
+		this.addFilter(servletContext);
 		
 		servletContext.getServletRegistration("jsp").addMapping("*.html");
 	}
@@ -61,10 +64,13 @@ public class WebAppStartup implements WebApplicationInitializer {
 	}
 
 	/**
-	 * 字符过滤器
+	 * 添加字符过滤器
 	 */
-	private CharacterEncodingFilter encodingFilter() {
-		return new CharacterEncodingFilter("UTF-8");
+	public void addFilter(ServletContext servletContext) {
+		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter("UTF-8");
+		javax.servlet.FilterRegistration.Dynamic dynamic = servletContext.addFilter("encodingFilter",
+				characterEncodingFilter);
+		dynamic.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), false, "/*");
 	}
 
 	/**

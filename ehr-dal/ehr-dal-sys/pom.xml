@@ -7,22 +7,23 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>ehr-dal-sys</artifactId>
-	
-	<dependencies>	
+
+	<dependencies>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
 		</dependency>
-		<!-- 
-		<dependency>
-			<groupId>com.huatu.wy</groupId>
-			<artifactId>sql-builder</artifactId>
-		</dependency>
-		 -->
+		<!-- <dependency> <groupId>com.huatu.wy</groupId> <artifactId>sql-builder</artifactId> 
+			</dependency> -->
 		<dependency>
 			<groupId>com.baijia.tianxiao</groupId>
 			<artifactId>sql-builder</artifactId>
 			<version>1.7.3-RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
 		</dependency>
 	</dependencies>
 </project>
